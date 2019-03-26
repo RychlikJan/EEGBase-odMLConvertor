@@ -1,0 +1,3 @@
+https://learnxinyminutes.com/docs/nix/ - nix codes example with save data
+https://web.gin.g-node.org/JiriVanek/DataConversionToNIX/src/master/BrainVision format
+
