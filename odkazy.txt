@@ -1,3 +1,9 @@
 https://learnxinyminutes.com/docs/nix/ - nix codes example with save data
-https://web.gin.g-node.org/JiriVanek/DataConversionToNIX/src/master/BrainVision format
+https://web.gin.g-node.org/JiriVanek/DataConversionToNIX/src/master/BrainVision forma
+
+https://github.com/G-Node/python-odml/blob/master/doc/tutorial.rst --odml tutorial list
+
+https://github.com/G-Node/nix-odML-converter --odML nix connector
+
+http://g-node.github.io/nixpy/ --nixpy document, connet sections to the block. 
 
