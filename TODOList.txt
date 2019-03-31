@@ -1,11 +1,13 @@
-1) Read xml file in python
-2) Remove all gui information in metadata
+1) Read xml file in python								-done
+2) Remove all gui information in metadata						-done
 3) Move all sections in metadata into one section
 4) Use odML library and odML convertor to make data 1.4
 	-bin/user
 	-everywere
 5) Resolve connect BrainVision metadata and metadata from metadata.xml file. 
 6) Connect all scripts into one 
-7) Tested it 
+7) Care about entrance 
+	TODO - vhdr files
+	     - contains all of three files
 
  

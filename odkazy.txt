@@ -7,3 +7,8 @@ https://github.com/G-Node/nix-odML-converter --odML nix connector
 
 http://g-node.github.io/nixpy/ --nixpy document, connet sections to the block. 
 
+https://stackoverflow.com/questions/48007230/python-check-if-a-string-exists-in-an-xml-tag --xml parser name in tag
+
+
+
+
