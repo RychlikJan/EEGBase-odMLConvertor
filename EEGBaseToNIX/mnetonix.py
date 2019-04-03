@@ -97,6 +97,7 @@ def create_md_tree(section, values, block):
         if isinstance(v, Iterable):
             if not len(v):
                 continue
+            print(v)
             ndim = np.ndim(v)
             if ndim > 1:
                 da = block.create_data_array(k, "Multidimensional Metadata",

@@ -32,6 +32,9 @@ def xmlParser(xmlName):
         for child in root.iter():
             if "http://www.g-node.org/guiml" in child.tag:
                 i = 1
+
+    for element in root.findall('section'):
+        element.tag = 'subsection'
     ElementTree.dump(root)
 
 
