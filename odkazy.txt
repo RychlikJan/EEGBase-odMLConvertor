@@ -9,6 +9,9 @@ http://g-node.github.io/nixpy/ --nixpy document, connet sections to the block.
 
 https://stackoverflow.com/questions/48007230/python-check-if-a-string-exists-in-an-xml-tag --xml parser name in tag
 
+https://stackoverflow.com/questions/49259985/addin-multiple-sub-elements-with-same-tag-to-en-xml-tree-with-python-elementtree   -- deep copy of block IMPORTANT
+
+
 
 
 

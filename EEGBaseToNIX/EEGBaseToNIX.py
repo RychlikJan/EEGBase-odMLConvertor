@@ -35,6 +35,17 @@ def xmlParser(xmlName):
 
     for element in root.findall('section'):
         element.tag = 'subsection'
+
+    element = root.find('date')
+    child = ET.SubElement(root, "section")
+
+    "Nove xml, a prenaset jednotlive tagy pomoci depp section na webu navod"
+
+    #https://stackoverflow.com/questions/49259985/addin-multiple-sub-elements-with-same-tag-to-en-xml-tree-with-python-elementtree
+    #elem = ET.Element.makeelement('section')
+    #element.insert(0,elem)
+    #ET.SubElement(element,'section')
+    #element.SubElement('section')
     ElementTree.dump(root)
 
 
