@@ -46,7 +46,7 @@ def xmlParser(xmlName):
     #element.insert(0,elem)
     #ET.SubElement(element,'section')
     #element.SubElement('section')
-    ElementTree.dump(root)
+    # ElementTree.dump(root)
     print()
     print()
     newRoot = ET.Element("odML")
@@ -57,12 +57,14 @@ def xmlParser(xmlName):
     section = ET.SubElement(newRoot, "section")
     name = ET.SubElement(section, "name")
     name.text = "Mereni"
+    typ= ET.SubElement(section, "type")
+    typ.text = "new"
     for element in root.findall('section'):
         section.append(element)
 
     # ET.SubElement(doc, "field1", name="blah").text = "some value1"
     # ET.SubElement(doc, "field2", name="asdfasd").text = "some vlaue2"
-    ElementTree.dump(newRoot)
+    # ElementTree.dump(newRoot)
     #tree = ET.ElementTree(newRoot)
     #tree.write("filename.xml")
     tree = ET.ElementTree(newRoot)

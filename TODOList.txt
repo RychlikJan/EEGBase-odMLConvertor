@@ -1,7 +1,7 @@
 1) Read xml file in python								-done
 2) Remove all gui information in metadata						-done
-3) Move all sections in metadata into one section
-4) Use odML library and odML convertor to make data 1.4
+3) Move all sections in metadata into one section					-done
+4) Use odML library and odML convertor to make data 1.4					-done
 	-bin/user
 	-everywere
 5) Resolve connect BrainVision metadata and metadata from metadata.xml file. 
@@ -11,3 +11,8 @@
 	     - contains all of three files
 
  
+napojit vysledny file na nix
+vsechno spustit z jednoho skriptu
+git hub											-done
+	dokumentace 									-done
+
