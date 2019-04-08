@@ -1,0 +1,6 @@
+jan@jan-VirtualBox:~/.local/bin$ odmlconversion -r "/home/jan/Documents/EEGBase-odMLConvertor/EEGBaseToNIX/" -o "/home/jan/Documents/EEGBase-odMLConvertor/EEGBaseToNIX/"
+
+
+
+
+

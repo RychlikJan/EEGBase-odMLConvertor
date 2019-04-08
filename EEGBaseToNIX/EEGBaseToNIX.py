@@ -33,11 +33,11 @@ def xmlParser(xmlName):
             if "http://www.g-node.org/guiml" in child.tag:
                 i = 1
 
-    for element in root.findall('section'):
-        element.tag = 'subsection'
+    # for element in root.findall('section'):
+    #     element.tag = 'subsection'
 
-    element = root.find('date')
-    child = ET.SubElement(root, "section")
+    #element = root.find('date')
+    #child = ET.SubElement(root, "section")
 
     "Nove xml, a prenaset jednotlive tagy pomoci depp section na webu navod"
 
@@ -47,6 +47,26 @@ def xmlParser(xmlName):
     #ET.SubElement(element,'section')
     #element.SubElement('section')
     ElementTree.dump(root)
+    print()
+    print()
+    newRoot = ET.Element("odML")
+    version = ET.SubElement(newRoot, "version")
+    date = ET.SubElement(newRoot, "date")
+    version.text = root.find('version').text
+    date.text = root.find('date').text
+    section = ET.SubElement(newRoot, "section")
+    name = ET.SubElement(section, "name")
+    name.text = "Mereni"
+    for element in root.findall('section'):
+        section.append(element)
+
+    # ET.SubElement(doc, "field1", name="blah").text = "some value1"
+    # ET.SubElement(doc, "field2", name="asdfasd").text = "some vlaue2"
+    ElementTree.dump(newRoot)
+    #tree = ET.ElementTree(newRoot)
+    #tree.write("filename.xml")
+    tree = ET.ElementTree(newRoot)
+    tree.write("filename.xml")
 
 
 def fileExist(path):

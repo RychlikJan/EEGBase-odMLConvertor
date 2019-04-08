@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odML version="1.1">
+  <version>1</version>
+  <date>2015-07-16</date>
+  <section>
+    <name>Mereni</name>
+    <section>
+      <type>new</type>
+      <name>Experiment</name>
+      <property>
+        <name>research group</name>
+        <type>string</type>
+        <value>BRUVAR</value>
+      </property>
+      <property>
+        <name>scenario title</name>
+        <type>string</type>
+        <value>VVDKU</value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Subject</name>
+      <property>
+        <name>gender</name>
+        <type>string</type>
+        <value>male</value>
+      </property>
+      <property>
+        <name>age</name>
+        <type>string</type>
+        <value>28</value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Digitization</name>
+      <property>
+        <name>sampling rate</name>
+        <type>string</type>
+        <value>1000 Hz</value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Devices</name>
+      <section>
+        <type>new</type>
+        <name>EEG Cap</name>
+        <property>
+          <name>title</name>
+          <type>string</type>
+          <value>EEG Cap</value>
+        </property>
+        <property>
+          <name>type</name>
+          <type>string</type>
+          <value>[blue - large (58 - 62 cm),red - medium (54 - 58 cm),yellow - small (50 - 55 cm)]</value>
+        </property>
+        <property>
+          <name>description</name>
+          <type>string</type>
+          <value>EEG cap captures the signal  of neuronal activity in the brain from the head surface using electrode application technique.</value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Amplifier</name>
+        <property>
+          <name>title</name>
+          <type>string</type>
+          <value>V-Amp</value>
+        </property>
+        <property>
+          <name>type</name>
+          <type>string</type>
+          <value>18</value>
+        </property>
+        <property>
+          <name>description</name>
+          <type>string</type>
+          <value>The V-Amp is used for recording EEG signal and the full range of evoked potentials. Amplifier has two auxiliary ports for measuring peripheral signals like GSR, blood flow, body temperature.</value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Electrode1</name>
+        <property>
+          <name>title</name>
+          <type>string</type>
+          <value>E21-9S DISK ELECTRODE</value>
+        </property>
+        <property>
+          <name>type</name>
+          <type>string</type>
+          <value>reference</value>
+        </property>
+        <property>
+          <name>description</name>
+          <type>string</type>
+          <value>An electrode is an electrical conductor used to make contact with a nonmetallic part of a circuit (e.g., the human scalp) and is used to measure electrical activity. http://purl.bioontology.org/NEMO/ontology/NEMO.owl#NEMO_0000501</value>
+        </property>
+        <section>
+          <type>new</type>
+          <name>Electrode2</name>
+          <property>
+            <name>title</name>
+            <type>string</type>
+            <value>E21-9S DISK ELECTRODE</value>
+          </property>
+          <property>
+            <name>type</name>
+            <type>string</type>
+            <value>ground</value>
+          </property>
+          <property>
+            <name>description</name>
+            <type>string</type>
+            <value>An electrode is an electrical conductor used to make contact with a nonmetallic part of a circuit (e.g., the human scalp) and is used to measure electrical activity. http://purl.bioontology.org/NEMO/ontology/NEMO.owl#NEMO_0000501</value>
+          </property>
+        </section>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Accessories</name>
+        <section>
+          <type>new</type>
+          <name>Electro Gel</name>
+          <property>
+            <name>title</name>
+            <type>string</type>
+            <value>ELECTRO-GEL NET:16</value>
+          </property>
+          <property>
+            <name>description</name>
+            <type>string</type>
+            <value>This electro-gel is an off white color, water-miscible conductive gel. Electro-gel is a mixture of the following components: Water, Sodium Chloride, Aragum, Glycerin, Pottasium Bitartrate, Methylparaben and Propylparaben. Electro gel is applied by inserting the gel into the EEG cap electrodes by using a syringe and blunted needle. Electro gel is used for setting low electrode impedance and limitations of electrode artifacts.</value>
+          </property>
+        </section>
+        <section>
+          <type>new</type>
+          <name>Conductive Paste</name>
+          <property>
+            <name>title</name>
+            <type>string</type>
+            <value>Ten 20 CONDUCTIVE EEG Paste</value>
+          </property>
+          <property>
+            <name>description</name>
+            <type>string</type>
+            <value>Ten20 is a conductive and adhesive paste specifically formulated for use with reusable (non-disposable) electrodes. Primarily used for EEG electrodes. (http://www.biopac.com/ten20-conductivegel)</value>
+          </property>
+        </section>
+        <section>
+          <type>new</type>
+          <name>Degreasing Gel</name>
+          <property>
+            <name>title</name>
+            <type>string</type>
+            <value>Nuprep</value>
+          </property>
+          <property>
+            <name>description</name>
+            <type>string</type>
+            <value>Nuprep gel is applied to electrode site on scalp with cotton swab. EEG electrode paste and reference or ground electrode is applied over Nuprep gel.</value>
+          </property>
+        </section>
+      </section>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Software1</name>
+      <property>
+        <name>title</name>
+        <type>string</type>
+        <value>BrainVision Recorder 1.2</value>
+      </property>
+      <property>
+        <name>description</name>
+        <type>string</type>
+        <value>EEG/ERP recording software</value>
+      </property>
+      <section>
+        <type>new</type>
+        <name>Software2</name>
+        <property>
+          <name>title</name>
+          <type>string</type>
+          <value>Presentation 18.1</value>
+        </property>
+        <property>
+          <name>description</name>
+          <type>string</type>
+          <value>Presentation® is a stimulus delivery and experiment control program for neuroscience. It runs on any Windows PC, and delivers auditory, visual and multimodal stimuli with sub-millisecond temporal precision</value>
+        </property>
+      </section>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Experimentators</name>
+      <section>
+        <type>new</type>
+        <name>Person 1</name>
+        <property>
+          <name>username</name>
+          <type>string</type>
+          <value>rm</value>
+        </property>
+        <property>
+          <name>surname</name>
+          <type>string</type>
+          <value>Moucek</value>
+        </property>
+        <property>
+          <name>givenname</name>
+          <type>string</type>
+          <value>Roman</value>
+        </property>
+        <property>
+          <name>gender</name>
+          <type>string</type>
+          <value>male</value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Person 2</name>
+        <property>
+          <name>username</name>
+          <type>string</type>
+          <value>vv</value>
+        </property>
+        <property>
+          <name>surname</name>
+          <type>string</type>
+          <value>Vacek</value>
+        </property>
+        <property>
+          <name>givenname</name>
+          <type>string</type>
+          <value>Vitezslav</value>
+        </property>
+        <property>
+          <name>gender</name>
+          <type>string</type>
+          <value>male</value>
+        </property>
+      </section>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Licenses</name>
+      <property>
+        <name>license</name>
+        <type>string</type>
+        <value>GNU General Public License</value>
+      </property>
+    </section>
+  </section>
+</odML>
