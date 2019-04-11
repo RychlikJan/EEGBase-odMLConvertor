@@ -62,9 +62,11 @@ def make_dir(path):
 
 
 def xml_parser(xml_name, path):
+    print("tested")
     new_xml_name = get_name(path, ".xml")
     xml_file = ET.parse(xml_name)
     root = xml_file.getroot()
+
     i = 1
     while i == 1:
         remove_one(root)
@@ -181,6 +183,7 @@ def main():
     vhdr_files = all_vhdr_files(args[1] + "/Data")
     if not vhdr_files:
         print("[EEG-BASE-TO-NIX] No .vhdr files not found")
+        sys.exit()
 
     path_to_metadata = xml_parser(args[1] + "/metadata.xml", vhdr_files[0])
     path_to_nix = run_mne_to_nix_script(vhdr_files[0])

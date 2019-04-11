@@ -1,0 +1,182 @@
+<odML version="1"><version>1</version><date>2017-10-02</date><section><name>P3Numbers_20150618_f_11_001.xml</name><type>new</type><section>
+    <type>project</type>
+    <name>ODML-Project</name>
+    <definition>Information about the project.</definition>
+    <property>
+      <name>Topic</name>
+      <definition>A descriptive text of the project topic.</definition>
+      <value>
+        <type>text</type>
+      </value>
+    </property>
+    <property>
+      <name>Grant</name>
+      <definition>The name or identifier of the grant funding this project.</definition>
+      <value>
+        Japan 007
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>PrincipleInvestigator</name>
+      <definition>The person responsible for this project.</definition>
+      <value>
+        RIKEN investigator
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Scientist</name>
+      <definition>Additional involved person(s).</definition>
+      <value>
+        <type>person</type>
+      </value>
+    </property>
+    <property>
+      <name>Start</name>
+      <definition>The day the project was begun.</definition>
+      <value>
+        <type>date</type>
+      </value>
+    </property>
+    <property>
+      <name>End</name>
+      <definition>The date the project ended.</definition>
+      <value>
+        <type>date</type>
+      </value>
+    </property>
+    <section>
+      <type>subject</type>
+      <name>ODML-Subject</name>
+      <definition>The investigated experimental subject (animal or person).
+      May contain the Cell and Preparation sections as subsections.</definition>
+      <property>
+        <name>Comment</name>
+        <definition>A general comment on a specific
+         subject.</definition>
+        <value>
+          <type>text</type>
+        </value>
+      </property>
+      <property>
+        <name>Species</name>
+        <definition>The scientific name of the species e.g. Apis
+         mellifera, Homo sapiens.</definition>
+        <value>
+          Homo sapiens
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>TrivialName</name>
+        <definition>The trivial name of the species like&amp;#xd;
+         Honeybee, Human.</definition>
+        <value>
+          Human
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Gender</name>
+        <definition>Male or female?</definition>
+        <value>
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Birthday</name>
+        <definition>The birthday. Age can be inferred from the
+         date of recording.</definition>
+        <value>
+          <type>date</type>
+        </value>
+      </property>
+      <property>
+        <name>Age</name>
+        <definition>The age of the subject since birth. E.g. P19,
+         or 5 days.</definition>
+        <value>
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>HealthStatus</name>
+        <definition>Information about the health status of this
+         subject.</definition>
+        <value>
+          healthy
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>ConactInformation</name>
+        <definition>How to get in contact with this subject.</definition>
+        <value>
+          <type>text</type>
+        </value>
+      </property>
+      <property>
+        <name>Size</name>
+        <definition>The size of the subject. This value may be used context dependent. Size could be length for a fish, heigth for a human subject, or shoulder height for a horse etc...</definition>
+        <value>
+          <type>float</type>
+        </value>
+      </property>
+      <property>
+        <name>Weight</name>
+        <definition>The weigth of this subject.</definition>
+        <value>
+          <type>float</type>
+        </value>
+      </property>
+    </section>
+    <section>
+      <type>experiment</type>
+      <name>ODML-Experiment</name>
+      <definition>Specification of an experiment. The Experiment is
+      part of a Project and the recorded data for a specific
+      Experiment are found in Datasets. Possible subsections are, for
+      example, Dataset and Stimulus.</definition>
+      <property>
+        <name>Description</name>
+        <definition>A description of the
+         experiment.</definition>
+        <value>
+          <type>text</type>
+        </value>
+      </property>
+      <property>
+        <name>Type</name>
+        <definition>The type of experiment.</definition>
+        <value>
+          electrophysiology
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Subtype</name>
+        <value>
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>ProjectName</name>
+        <definition>The name of the project this experiment belongs to.</definition>
+        <value>
+          My human EEG
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>ProjectID</name>
+        <definition>The ID of the project this experiment belongs&amp;#xd;
+         to.</definition>
+        <value>
+          Japan 007
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+  </section>
+</section></odML>

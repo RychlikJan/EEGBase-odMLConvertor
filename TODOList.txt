@@ -19,5 +19,5 @@ git hub											-done
 
 parsovani path podle tecky ?
 stack owerflow c citaci ? 
-
+Kontrolovat existenci vsech tri files
 
