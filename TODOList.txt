@@ -16,3 +16,8 @@ vsechno spustit z jednoho skriptu
 git hub											-done
 	dokumentace 									-done
 
+
+parsovani path podle tecky ?
+stack owerflow c citaci ? 
+
+
