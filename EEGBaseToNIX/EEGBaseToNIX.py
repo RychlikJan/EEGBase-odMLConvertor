@@ -1,4 +1,4 @@
-
+import platform
 import sys
 import os
 import xml.etree.ElementTree as ET
@@ -18,6 +18,20 @@ chmod 777 convert.py
 
 
 """
+spliter = ""
+def set_spliter():
+    os_sys = platform.system()
+    print(os_sys)
+    global spliter
+    if "Linux" in os_sys:
+        spliter = "/"
+    elif "Windows" in os_sys:
+        spliter = "\\"
+    else:
+        spliter = ""
+    print("[SET-SPLITER]" +spliter)
+
+
 
 
 def iter_parent(tree):
@@ -95,6 +109,7 @@ def xml_parser(xml_name, path):
     tree = ET.ElementTree(new_root)
     make_dir(path)
     place = path+"/"+new_xml_name
+    print(place)
     tree.write(place)
     print("[XML-Parser] Save to:" + place)
     print("[XML-Parser] Xml parse ends")
@@ -172,6 +187,8 @@ def nixodmlconverter_script(path):
 
 
 def main():
+    set_spliter()
+    print("[EEG-BASE-TO-NIX] " +spliter)
     print("[EEG-BASE-TO-NIX] Script started")
     args = sys.argv
     if len(args) == 1:
