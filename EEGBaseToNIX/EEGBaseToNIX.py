@@ -19,10 +19,12 @@ chmod 777 convert.py
 
 """
 path_spliter = ""
-translater =""
+translater = ""
+
+
 def set_spliter():
     os_sys = platform.system()
-    print(os_sys)
+    print("[FILE-SYSTEM]"+os_sys)
     global path_spliter
     global translater
     if "Linux" in os_sys:
@@ -33,9 +35,6 @@ def set_spliter():
         path_spliter = "\\"
     else:
         path_spliter = ""
-    print("[SET-SPLITER]" + path_spliter)
-
-
 
 
 def iter_parent(tree):
@@ -60,7 +59,7 @@ def get_name(path, end):
 
 
 def get_path(path):
-    print(path)
+    print("[GET-PATH]" + path)
     path_arr = path.split(path_spliter)
     path = ""
     index = 0
@@ -70,7 +69,6 @@ def get_path(path):
         index += 1
     path = path + "NewNIX"
     print("[GET-PATH] Final path is: " + path)
-    print("[GET-PATH]", path_arr)
     return path
 
 
@@ -83,7 +81,7 @@ def make_dir(path):
 
 
 def xml_parser(xml_name, path):
-    print("[XML-Parser] Path:" +path)
+    print("[XML-Parser] Path:" + path)
     new_xml_name = get_name(path, ".xml")
     xml_file = ET.parse(xml_name)
     root = xml_file.getroot()
@@ -116,7 +114,6 @@ def xml_parser(xml_name, path):
     tree = ET.ElementTree(new_root)
     make_dir(path)
     place = path+path_spliter+new_xml_name
-    print(place)
     tree.write(place)
     print("[XML-Parser] Save to:" + place)
     print("[XML-Parser] Xml parse ends")
@@ -124,7 +121,7 @@ def xml_parser(xml_name, path):
 
 
 def file_exist(path):
-    print("[FILE-EXIST] Path: "+ path)
+    print("[FILE-EXIST] Path: " + path)
     try:
         f = open(path)
         f.close()
@@ -134,28 +131,27 @@ def file_exist(path):
 
 
 def point_split(array_path):
-    print("[POINT-SPLIT]",array_path)
+    print("[POINT-SPLIT]", array_path)
     arr_len = len(array_path)
     path = ""
     index = 0
     while index < arr_len-1:
         if index is not 0:
-    	    path = path + "."
+            path = path + "."
         path = path + array_path[index]
-        index+=1
-    print("[POINT-SPLIT] Path: " +path)
+        index += 1
+    print("[POINT-SPLIT] Path: " + path)
     return path
 
 
-
 def all_vhdr_files(path):
-    print("[ALL-VHDR-FILES] Actual entrance path: " +path)
+    print("[ALL-VHDR-FILES] Actual entrance path: " + path)
     files = []
     for r, d, f in os.walk(path):
         for file in f:
             if '.vhdr' in file:
                 files.append(os.path.join(r, file))
-    index =0
+    index = 0
     print("[ALL-VHDR-FILES] Tested all files", files)
     for f in files:
         path_egg = f.split(".")
@@ -166,8 +162,7 @@ def all_vhdr_files(path):
         exist_vmrk = file_exist(vmrk_p)
         if exist_eeg == 0 or exist_vmrk == 0:
             files.remove(f)
-        index = index +1
-    print(index)
+        index = index + 1
     return files
 
 
@@ -175,13 +170,13 @@ def run_mne_to_nix_script(path):
     print("[MNE-TO-NIX] Mne to nix script started")
     print("[MNE-TO-NIX] Runs on file :" + path)
     pom = sys.path[0] + path_spliter + "mnetonix.py"
-    print("[MNE-TO-NIX] Path script: " +pom)
+    print("[MNE-TO-NIX] Path script: " + pom)
     
-    p = Popen([translater,pom, path], stdout=PIPE, stderr=STDOUT, bufsize=1)
+    p = Popen([translater, pom, path], stdout=PIPE, stderr=STDOUT, bufsize=1)
     p.wait()
     print("[MNE-TO-NIX] Mne to nix ended")
-    path_new_name = path.split()
-    path = point_split(path_new_name) +".nix"
+    path_new_name = path.split(".")
+    path = point_split(path_new_name) + ".nix"
     result = file_exist(path)
     if result is 0:
         print("[MNE-TO-NIX] Mne to nix ended with errors")
@@ -218,7 +213,6 @@ def nixodmlconverter_script(path):
 
 def main():
     set_spliter()
-    print("[EEG-BASE-TO-NIX] " + path_spliter)
     print("[EEG-BASE-TO-NIX] Script started")
     args = sys.argv
     if len(args) == 1:
@@ -231,7 +225,7 @@ def main():
     if not vhdr_files:
         print("[EEG-BASE-TO-NIX] No .vhdr files not found")
         sys.exit()
-    print("[EEG-BASE-TO-NIX] Array vhdr files:",vhdr_files)
+    print("[EEG-BASE-TO-NIX] Array vhdr files:", vhdr_files)
     path_to_metadata = xml_parser(args[1] + path_spliter+"metadata.xml", vhdr_files[0])
     path_to_nix = run_mne_to_nix_script(vhdr_files[0])
     if "ErrorScript" in path_to_nix:
