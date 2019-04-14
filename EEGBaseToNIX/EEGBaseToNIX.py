@@ -18,18 +18,18 @@ chmod 777 convert.py
 
 
 """
-spliter = ""
+path_spliter = ""
 def set_spliter():
     os_sys = platform.system()
     print(os_sys)
-    global spliter
+    global path_spliter
     if "Linux" in os_sys:
-        spliter = "/"
+        path_spliter = "/"
     elif "Windows" in os_sys:
-        spliter = "\\"
+        path_spliter = "\\"
     else:
-        spliter = ""
-    print("[SET-SPLITER]" +spliter)
+        path_spliter = ""
+    print("[SET-SPLITER]" + path_spliter)
 
 
 
@@ -47,7 +47,7 @@ def remove_one(root):
 
 
 def get_name(path, end):
-    new_xml_name_arr = path.split("/")
+    new_xml_name_arr = path.split(path_spliter)
     file_name = new_xml_name_arr[-1]
     file_name_arr = file_name.split(".")
     file_name_arr[0] = file_name_arr[0] + end
@@ -56,12 +56,12 @@ def get_name(path, end):
 
 
 def get_path(path):
-    path_arr = path.split("/")
+    path_arr = path.split(path_spliter)
     path = ""
     index = 0
     while index < len(path_arr)-2:
         path = path + path_arr[index]
-        path = path+"/"
+        path = path + path_spliter
         index += 1
     path = path + "NewNIX"
     return path
@@ -108,7 +108,7 @@ def xml_parser(xml_name, path):
     path = get_path(path)
     tree = ET.ElementTree(new_root)
     make_dir(path)
-    place = path+"/"+new_xml_name
+    place = path+path_spliter+new_xml_name
     print(place)
     tree.write(place)
     print("[XML-Parser] Save to:" + place)
@@ -164,12 +164,12 @@ def run_mne_to_nix_script(path):
 
 def copy_file(source_path, destination_path):
     print("[COPY-FILE] File copying started")
-    new_dest_path_arr = destination_path.split("/")
+    new_dest_path_arr = destination_path.split(path_spliter)
     destination_path = ""
     index = 0
     while index < len(new_dest_path_arr)-1:
         destination_path = destination_path + new_dest_path_arr[index]
-        destination_path = destination_path + "/"
+        destination_path = destination_path + path_spliter
         index += 1
     file_name = get_name(source_path, ".nix")
     os.rename(source_path, destination_path+file_name)
@@ -188,21 +188,21 @@ def nixodmlconverter_script(path):
 
 def main():
     set_spliter()
-    print("[EEG-BASE-TO-NIX] " +spliter)
+    print("[EEG-BASE-TO-NIX] " + path_spliter)
     print("[EEG-BASE-TO-NIX] Script started")
     args = sys.argv
     if len(args) == 1:
         print("[EEG-BASE-TO-NIX] Use like an argument path into folder with measurement")
         sys.exit()
-    if file_exist(args[1] + "/metadata.xml") == 0:
+    if file_exist(args[1] + path_spliter+"metadata.xml") == 0:
         print("[EEG-BASE-TO-NIX] Metadata.xml file not found")
         sys.exit()
-    vhdr_files = all_vhdr_files(args[1] + "/Data")
+    vhdr_files = all_vhdr_files(args[1] + path_spliter+"Data")
     if not vhdr_files:
         print("[EEG-BASE-TO-NIX] No .vhdr files not found")
         sys.exit()
 
-    path_to_metadata = xml_parser(args[1] + "/metadata.xml", vhdr_files[0])
+    path_to_metadata = xml_parser(args[1] + path_spliter+"metadata.xml", vhdr_files[0])
     path_to_nix = run_mne_to_nix_script(vhdr_files[0])
     if "ErrorScript" in path_to_nix:
         print("[EEG-BASE-TO-NIX] Script nnetonix.py failed")
