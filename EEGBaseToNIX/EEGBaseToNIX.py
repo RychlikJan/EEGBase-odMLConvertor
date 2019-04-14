@@ -24,6 +24,7 @@ def set_spliter():
     print(os_sys)
     global path_spliter
     if "Linux" in os_sys:
+
         path_spliter = "/"
     elif "Windows" in os_sys:
         path_spliter = "\\"
@@ -64,6 +65,8 @@ def get_path(path):
         path = path + path_spliter
         index += 1
     path = path + "NewNIX"
+    print("[GET-PATH] Final path is: " + path)
+    print("[GET-PATH]", path_arr)
     return path
 
 
