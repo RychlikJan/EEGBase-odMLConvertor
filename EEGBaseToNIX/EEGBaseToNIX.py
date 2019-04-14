@@ -19,14 +19,17 @@ chmod 777 convert.py
 
 """
 path_spliter = ""
+translater =""
 def set_spliter():
     os_sys = platform.system()
     print(os_sys)
     global path_spliter
+    global translater
     if "Linux" in os_sys:
-
+        translater = "python3"
         path_spliter = "/"
     elif "Windows" in os_sys:
+        translater = "python"
         path_spliter = "\\"
     else:
         path_spliter = ""
@@ -57,6 +60,7 @@ def get_name(path, end):
 
 
 def get_path(path):
+    print(path)
     path_arr = path.split(path_spliter)
     path = ""
     index = 0
@@ -79,7 +83,7 @@ def make_dir(path):
 
 
 def xml_parser(xml_name, path):
-    print("tested")
+    print("[XML-Parser] Path:" +path)
     new_xml_name = get_name(path, ".xml")
     xml_file = ET.parse(xml_name)
     root = xml_file.getroot()
@@ -120,6 +124,7 @@ def xml_parser(xml_name, path):
 
 
 def file_exist(path):
+    print("[FILE-EXIST] Path: "+ path)
     try:
         f = open(path)
         f.close()
@@ -128,33 +133,55 @@ def file_exist(path):
     return 1
 
 
+def point_split(array_path):
+    print("[POINT-SPLIT]",array_path)
+    arr_len = len(array_path)
+    path = ""
+    index = 0
+    while index < arr_len-1:
+        if index is not 0:
+    	    path = path + "."
+        path = path + array_path[index]
+        index+=1
+    print("[POINT-SPLIT] Path: " +path)
+    return path
+
+
+
 def all_vhdr_files(path):
+    print("[ALL-VHDR-FILES] Actual entrance path: " +path)
     files = []
     for r, d, f in os.walk(path):
         for file in f:
             if '.vhdr' in file:
                 files.append(os.path.join(r, file))
-
+    index =0
+    print("[ALL-VHDR-FILES] Tested all files", files)
     for f in files:
         path_egg = f.split(".")
         path_vmrk = f.split(".")
-        path_egg[0] = path_egg[0] + ".eeg"
-        path_vmrk[0] = path_vmrk[0] + ".vmrk"
-        exist_eeg = file_exist(path_egg[0])
-        exist_vmrk = file_exist(path_vmrk[0])
+        eeg_p = point_split(path_egg) + ".eeg"
+        vmrk_p = point_split(path_vmrk) + ".vmrk"
+        exist_eeg = file_exist(eeg_p)
+        exist_vmrk = file_exist(vmrk_p)
         if exist_eeg == 0 or exist_vmrk == 0:
             files.remove(f)
+        index = index +1
+    print(index)
     return files
 
 
 def run_mne_to_nix_script(path):
     print("[MNE-TO-NIX] Mne to nix script started")
-    p = Popen(["python3", "mnetonix.py", path], stdout=PIPE, stderr=STDOUT, bufsize=1)
+    print("[MNE-TO-NIX] Runs on file :" + path)
+    pom = sys.path[0] + path_spliter + "mnetonix.py"
+    print("[MNE-TO-NIX] Path script: " +pom)
+    
+    p = Popen([translater,pom, path], stdout=PIPE, stderr=STDOUT, bufsize=1)
     p.wait()
-
-    path_new_name = path.split(".")
-    path_new_name[0] = path_new_name[0] + ".nix"
-    path = path_new_name[0]
+    print("[MNE-TO-NIX] Mne to nix ended")
+    path_new_name = path.split()
+    path = point_split(path_new_name) +".nix"
     result = file_exist(path)
     if result is 0:
         print("[MNE-TO-NIX] Mne to nix ended with errors")
@@ -204,7 +231,7 @@ def main():
     if not vhdr_files:
         print("[EEG-BASE-TO-NIX] No .vhdr files not found")
         sys.exit()
-
+    print("[EEG-BASE-TO-NIX] Array vhdr files:",vhdr_files)
     path_to_metadata = xml_parser(args[1] + path_spliter+"metadata.xml", vhdr_files[0])
     path_to_nix = run_mne_to_nix_script(vhdr_files[0])
     if "ErrorScript" in path_to_nix:
