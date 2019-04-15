@@ -3,6 +3,7 @@ import sys
 import os
 import xml.etree.ElementTree as ET
 from subprocess import Popen, PIPE, STDOUT
+from zipfile import ZipFile
 
 
 """
@@ -24,7 +25,7 @@ translater = ""
 
 def set_spliter():
     os_sys = platform.system()
-    print("[FILE-SYSTEM]"+os_sys)
+    print("[OS-SYSTEM]"+os_sys)
     global path_spliter
     global translater
     if "Linux" in os_sys:
@@ -144,16 +145,32 @@ def point_split(array_path):
     return path
 
 
+def contains_zip(path):
+    zip_file = ""
+    for root, dirs, file in os.walk(path):
+        for f in file:
+            if f.endswith(".zip"):
+                zip_file = os.path.join(root, f)
+    if zip_file is "":
+        return
+    print(zip_file)
+    with ZipFile(zip_file, 'r') as zipObj:
+        zipObj.extractall(path)
+        #os.remove(zip_file)  pukud chceme mazat .zip file
+
+
 def all_vhdr_files(path):
     print("[ALL-VHDR-FILES] Actual entrance path: " + path)
     files = []
+    contains_zip(path)
     for r, d, f in os.walk(path):
         for file in f:
             if '.vhdr' in file:
                 files.append(os.path.join(r, file))
     index = 0
     print("[ALL-VHDR-FILES] Tested all files", files)
-    for f in files:
+    while index < len(files):
+        f = files[index]
         path_egg = f.split(".")
         path_vmrk = f.split(".")
         eeg_p = point_split(path_egg) + ".eeg"
@@ -162,6 +179,7 @@ def all_vhdr_files(path):
         exist_vmrk = file_exist(vmrk_p)
         if exist_eeg == 0 or exist_vmrk == 0:
             files.remove(f)
+            index = index-1
         index = index + 1
     return files
 
@@ -207,8 +225,27 @@ def nixodmlconverter_script(path):
     print("[NIX-ODML-CONVERTER-SCRIPT] Script started")
     p = Popen(["python3", "convert.py", path], stdout=PIPE, stderr=STDOUT, bufsize=1)
     p.wait()
-
     print("[NIX-ODML-CONVERTER-SCRIPT] Script ended successful")
+
+
+def convert(path):
+    print("[CONVERT-FILE] Converting target file: " + path)
+    if file_exist(path + path_spliter+"metadata.xml") == 0:
+        print("[CONVERT-FILE] Metadata.xml file not found")
+        return
+    vhdr_files = all_vhdr_files(path + path_spliter+"Data")
+    if not vhdr_files:
+        print("[CONVERT-FILE] No .vhdr files not found")
+        return
+    print("[CONVERT-FILE] Array vhdr files:", vhdr_files)
+    path_to_metadata = xml_parser(path + path_spliter+"metadata.xml", vhdr_files[0])
+    path_to_nix = run_mne_to_nix_script(vhdr_files[0])
+    if "ErrorScript" in path_to_nix:
+        print("[CONVERT-FILE] Script nnetonix.py failed")
+        return
+    copy_file(path_to_nix, path_to_metadata)
+    nixodmlconverter_script(path_to_metadata)
+    print("[CONVERT-FILE] Converting file ended")
 
 
 def main():
@@ -218,21 +255,31 @@ def main():
     if len(args) == 1:
         print("[EEG-BASE-TO-NIX] Use like an argument path into folder with measurement")
         sys.exit()
-    if file_exist(args[1] + path_spliter+"metadata.xml") == 0:
-        print("[EEG-BASE-TO-NIX] Metadata.xml file not found")
-        sys.exit()
-    vhdr_files = all_vhdr_files(args[1] + path_spliter+"Data")
-    if not vhdr_files:
-        print("[EEG-BASE-TO-NIX] No .vhdr files not found")
-        sys.exit()
-    print("[EEG-BASE-TO-NIX] Array vhdr files:", vhdr_files)
-    path_to_metadata = xml_parser(args[1] + path_spliter+"metadata.xml", vhdr_files[0])
-    path_to_nix = run_mne_to_nix_script(vhdr_files[0])
-    if "ErrorScript" in path_to_nix:
-        print("[EEG-BASE-TO-NIX] Script nnetonix.py failed")
-        sys.exit()
-    copy_file(path_to_nix, path_to_metadata)
-    nixodmlconverter_script(path_to_metadata)
+    directories = next(os.walk(args[1]))[1]
+    if "Data" in directories:
+        convert(args[1])
+    else:
+        #convert(args[1] + path_spliter + directories[0])
+        for d in directories:
+            convert(args[1] + path_spliter + d)
+
+
+    # convert(args[1])
+    # if file_exist(args[1] + path_spliter+"metadata.xml") == 0:
+    #     print("[EEG-BASE-TO-NIX] Metadata.xml file not found")
+    #     sys.exit()
+    # vhdr_files = all_vhdr_files(args[1] + path_spliter+"Data")
+    # if not vhdr_files:
+    #     print("[EEG-BASE-TO-NIX] No .vhdr files not found")
+    #     sys.exit()
+    # print("[EEG-BASE-TO-NIX] Array vhdr files:", vhdr_files)
+    # path_to_metadata = xml_parser(args[1] + path_spliter+"metadata.xml", vhdr_files[0])
+    # path_to_nix = run_mne_to_nix_script(vhdr_files[0])
+    # if "ErrorScript" in path_to_nix:
+    #     print("[EEG-BASE-TO-NIX] Script nnetonix.py failed")
+    #     sys.exit()
+    # copy_file(path_to_nix, path_to_metadata)
+    # nixodmlconverter_script(path_to_metadata)
     print("[EEG-BASE-TO-NIX] Script ended")
 
 
