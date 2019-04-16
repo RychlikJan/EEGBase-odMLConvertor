@@ -1,3 +1,12 @@
-nixio>=1.5.0b3
+nixio==1.5.0b3
 mne
+odml
 numpy
+scipy 
+matplotlib 
+ipython 
+jupyter 
+pandas 
+sympy 
+nose
+nixodmlconverter

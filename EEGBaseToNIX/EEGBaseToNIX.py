@@ -223,7 +223,8 @@ def copy_file(source_path, destination_path):
 
 def nixodmlconverter_script(path):
     print("[NIX-ODML-CONVERTER-SCRIPT] Script started")
-    p = Popen(["python3", "convert.py", path], stdout=PIPE, stderr=STDOUT, bufsize=1)
+    pom = sys.path[0] + path_spliter + "convert.py"
+    p = Popen([translater, pom, path], stdout=PIPE, stderr=STDOUT, bufsize=1)
     p.wait()
     print("[NIX-ODML-CONVERTER-SCRIPT] Script ended successful")
 
