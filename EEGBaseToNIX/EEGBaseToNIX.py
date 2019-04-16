@@ -7,25 +7,82 @@ from zipfile import ZipFile
 
 
 """
-dependencies
-pip install odml nixio==1.5.0b3
+EEGBaseToNIX.py
+Tool to convert experiments of University of West Bohemia egg base from BrainVision format to nix format.
+Tool work wit two scripts of gnode. 1st one is mnetonix.py to parse brain vision format by mne libraries and create nix 
+file and convert.py to conect nix file and odml data. 
 
-pip install -i https://test.pypi.org/simple/ nixodmlconverter==0.0.4
+Usage:
+  python EEGBaseToNIX.py [-- Path to folder with metadata and data]||[--Path to folder with more experiments] <debug=1>
 
-https://web.gin.g-node.org/JiriVanek/DataConversionToNIX/mnetonix.py
+Dependencies
+===================================
+python3
+
+pip install:
+nixio==1.5.0b3
+mne
+odml
+numpy
+scipy 
+matplotlib 
+ipython 
+jupyter 
+pandas 
+sympy 
+nose
+nixodmlconverter
+
 
 chmod 777 mnetonix.py
 chmod 777 convert.py
 
 
+Implementation 
+==================================
+EEGBaseToNIX.py takes metadata, remove all informations about gui. After this runs mnetonix.py and parse .eeg .vhdr 
+.vmrk files to nix files. Then runs convert.py script to conect metadata with ix file. 
+
+If is program run with optional argument "debug=1" is possible to se how tool works with files. 
+
+"""
+
+"""Global variables
+===================
+path_spliter: Variable to split path on dependency with os
+translater: Variable to split path on dependency with os
+debug_mode: 
 """
 path_spliter = ""
 translater = ""
+debug_mode = 0
+
+
+def debug_print(log):
+    """Method to print simply logs on console.
+        Args:
+            log (str): Log to print.
+    """
+    if debug_mode is 1:
+        print(log)
+
+
+def debug_print_arr(log, array):
+    """Method to print array logs on console.
+        Args:
+            log (str): Log to print.
+            array (array): Array to log
+    """
+    if debug_mode is 1:
+        print(log, array)
 
 
 def set_spliter():
+    """
+    Method to set global variables in dependency on OS System
+    """
     os_sys = platform.system()
-    print("[OS-SYSTEM]"+os_sys)
+    debug_print("[OS-SYSTEM]"+os_sys)
     global path_spliter
     global translater
     if "Linux" in os_sys:
@@ -39,28 +96,48 @@ def set_spliter():
 
 
 def iter_parent(tree):
+    """
+    Method to goes trough xml and save parent of child element
+    :param tree: xml tree
+
+    """
     for parent in tree.iter():
         for child in parent:
             yield parent, child
 
 
 def remove_one(root):
+    """
+    Remove specific element
+    :param root:
+    """
     for parent, child in iter_parent(root):
         if "http://www.g-node.org/guiml" in child.tag:
             parent.remove(child)
 
 
 def get_name(path, end):
+    """
+    Method extract name from path and append new file ending
+    :param path: Path to file-
+    :param end: New file ending
+    :return: Name of new file
+    """
     new_xml_name_arr = path.split(path_spliter)
     file_name = new_xml_name_arr[-1]
     file_name_arr = file_name.split(".")
     file_name_arr[0] = file_name_arr[0] + end
-    print("[GET-NAME] Return name: " + file_name_arr[0])
+    debug_print("[GET-NAME] Return name: " + file_name_arr[0])
     return file_name_arr[0]
 
 
 def get_path(path):
-    print("[GET-PATH]" + path)
+    """
+    Method add to target path new Way
+    :param path: Actual path
+    :return: New path
+    """
+    debug_print("[GET-PATH]" + path)
     path_arr = path.split(path_spliter)
     path = ""
     index = 0
@@ -69,11 +146,15 @@ def get_path(path):
         path = path + path_spliter
         index += 1
     path = path + "NewNIX"
-    print("[GET-PATH] Final path is: " + path)
+    debug_print("[GET-PATH] Final path is: " + path)
     return path
 
 
 def make_dir(path):
+    """
+    Method to create directory on specific path; if directory not exist
+    :param path: Path
+    """
     try:
         os.makedirs(path)
     except FileExistsError:
@@ -82,7 +163,12 @@ def make_dir(path):
 
 
 def xml_parser(xml_name, path):
-    print("[XML-Parser] Path:" + path)
+    """
+    Method to parse xml, remove gui tags and add new section, which is append to nix files
+    :param xml_name: xml name
+    :param path: path to xml
+    """
+    debug_print("[XML-PARSER] Path:" + path)
     new_xml_name = get_name(path, ".xml")
     xml_file = ET.parse(xml_name)
     root = xml_file.getroot()
@@ -116,13 +202,18 @@ def xml_parser(xml_name, path):
     make_dir(path)
     place = path+path_spliter+new_xml_name
     tree.write(place)
-    print("[XML-Parser] Save to:" + place)
-    print("[XML-Parser] Xml parse ends")
+    print("[XML-PARSER] Everything will be save on:" + place)
+    debug_print("[XML-PARSER] Xml parse ends")
     return place
 
 
 def file_exist(path):
-    print("[FILE-EXIST] Path: " + path)
+    """
+    Method tests the file exist.
+    :param path: Path to file.
+    :return: 0 - False/ 1-true
+    """
+    debug_print("[FILE-EXIST] Path: " + path)
     try:
         f = open(path)
         f.close()
@@ -132,7 +223,12 @@ def file_exist(path):
 
 
 def point_split(array_path):
-    print("[POINT-SPLIT]", array_path)
+    """
+    Method to split path array by point. Take everything before last point.
+    :param array_path: array of parts of split path
+    :return: path to array
+    """
+    debug_print_arr("[POINT-SPLIT]", array_path)
     arr_len = len(array_path)
     path = ""
     index = 0
@@ -141,11 +237,15 @@ def point_split(array_path):
             path = path + "."
         path = path + array_path[index]
         index += 1
-    print("[POINT-SPLIT] Path: " + path)
+    debug_print("[POINT-SPLIT] Path: " + path)
     return path
 
 
 def contains_zip(path):
+    """
+    Method to get and unzip files.
+    :param path: path to target directory
+    """
     zip_file = ""
     for root, dirs, file in os.walk(path):
         for f in file:
@@ -153,14 +253,18 @@ def contains_zip(path):
                 zip_file = os.path.join(root, f)
     if zip_file is "":
         return
-    print(zip_file)
+    debug_print(zip_file)
     with ZipFile(zip_file, 'r') as zipObj:
         zipObj.extractall(path)
-        #os.remove(zip_file)  pukud chceme mazat .zip file
+        #os.remove(zip_file)  #uncomment to remove used zip files
 
 
 def all_vhdr_files(path):
-    print("[ALL-VHDR-FILES] Actual entrance path: " + path)
+    """
+    Method to get names and paths to all .vhdr files ant paths to tehm
+    :param path: path to target irectory
+    """
+    debug_print("[ALL-VHDR-FILES] Actual entrance path: " + path)
     files = []
     contains_zip(path)
     for r, d, f in os.walk(path):
@@ -168,7 +272,7 @@ def all_vhdr_files(path):
             if '.vhdr' in file:
                 files.append(os.path.join(r, file))
     index = 0
-    print("[ALL-VHDR-FILES] Tested all files", files)
+    debug_print_arr("[ALL-VHDR-FILES] Tested all files", files)
     while index < len(files):
         f = files[index]
         path_egg = f.split(".")
@@ -185,14 +289,19 @@ def all_vhdr_files(path):
 
 
 def run_mne_to_nix_script(path):
-    print("[MNE-TO-NIX] Mne to nix script started")
-    print("[MNE-TO-NIX] Runs on file :" + path)
+    """
+    Runs script to parse mne and make nix file
+    :param path: Path to .vhdr, .eeg and .vmrk file
+    :return: Result of mntetonix.py script
+    """
+    debug_print("[MNE-TO-NIX] Mne to nix script started")
+    print("[MNE-TO-NIX] Starts runs on file :" + path)
     pom = sys.path[0] + path_spliter + "mnetonix.py"
-    print("[MNE-TO-NIX] Path script: " + pom)
+    debug_print("[MNE-TO-NIX] Path script: " + pom)
     
     p = Popen([translater, pom, path], stdout=PIPE, stderr=STDOUT, bufsize=1)
     p.wait()
-    print("[MNE-TO-NIX] Mne to nix ended")
+    debug_print("[MNE-TO-NIX] Mne to nix ended")
     path_new_name = path.split(".")
     path = point_split(path_new_name) + ".nix"
     result = file_exist(path)
@@ -200,13 +309,18 @@ def run_mne_to_nix_script(path):
         print("[MNE-TO-NIX] Mne to nix ended with errors")
         return "ErrorScript"
     else:
-        print("[MNE-TO-NIX] Mne to nix ended successful")
-        print("[MNE-TO-NIX] Saved to:" + path)
+        debug_print("[MNE-TO-NIX] Mne to nix ended successful")
+        debug_print("[MNE-TO-NIX] Saved to:" + path)
         return path
 
 
 def copy_file(source_path, destination_path):
-    print("[COPY-FILE] File copying started")
+    """
+    Method to move file between directories.
+    :param source_path: Source path.
+    :param destination_path: Destination path.
+    """
+    debug_print("[COPY-FILE] File copying started")
     new_dest_path_arr = destination_path.split(path_spliter)
     destination_path = ""
     index = 0
@@ -216,33 +330,41 @@ def copy_file(source_path, destination_path):
         index += 1
     file_name = get_name(source_path, ".nix")
     os.rename(source_path, destination_path+file_name)
-    print("[COPY-FILE] From:" + source_path)
-    print("[COPY-FILE] To: " + destination_path + file_name)
-    print("[COPY-FILE] File copying ended")
+    debug_print("[COPY-FILE] From:" + source_path)
+    debug_print("[COPY-FILE] To: " + destination_path + file_name)
+    debug_print("[COPY-FILE] File copying ended")
 
 
 def nixodmlconverter_script(path):
-    print("[NIX-ODML-CONVERTER-SCRIPT] Script started")
+    """
+    Runs convrty.py to connect xml a .nix file.
+    :param path: path to directory with nix and xml(odml) file
+    """
+    debug_print("[NIX-ODML-CONVERTER-SCRIPT] Script started")
     pom = sys.path[0] + path_spliter + "convert.py"
     p = Popen([translater, pom, path], stdout=PIPE, stderr=STDOUT, bufsize=1)
     p.wait()
-    print("[NIX-ODML-CONVERTER-SCRIPT] Script ended successful")
+    debug_print("[NIX-ODML-CONVERTER-SCRIPT] Script ended successful")
 
 
 def convert(path):
+    """
+    Method drives conversion between BarainVision and nix file.
+    :param path: Path to target directory
+    """
     print("[CONVERT-FILE] Converting target file: " + path)
     if file_exist(path + path_spliter+"metadata.xml") == 0:
-        print("[CONVERT-FILE] Metadata.xml file not found")
+        debug_print("[CONVERT-FILE] Metadata.xml file not found")
         return
     vhdr_files = all_vhdr_files(path + path_spliter+"Data")
     if not vhdr_files:
-        print("[CONVERT-FILE] No .vhdr files not found")
+        debug_print("[CONVERT-FILE] No .vhdr files not found")
         return
-    print("[CONVERT-FILE] Array vhdr files:", vhdr_files)
+    debug_print_arr("[CONVERT-FILE] Array vhdr files:", vhdr_files)
     path_to_metadata = xml_parser(path + path_spliter+"metadata.xml", vhdr_files[0])
     path_to_nix = run_mne_to_nix_script(vhdr_files[0])
     if "ErrorScript" in path_to_nix:
-        print("[CONVERT-FILE] Script nnetonix.py failed")
+        debug_print("[CONVERT-FILE] Script Mnetonix.py failed")
         return
     copy_file(path_to_nix, path_to_metadata)
     nixodmlconverter_script(path_to_metadata)
@@ -250,38 +372,29 @@ def convert(path):
 
 
 def main():
+    """
+    Main method.
+    :return:
+    """
     set_spliter()
-    print("[EEG-BASE-TO-NIX] Script started")
+    debug_print("[EEG-BASE-TO-NIX] Script started")
     args = sys.argv
     if len(args) == 1:
-        print("[EEG-BASE-TO-NIX] Use like an argument path into folder with measurement")
+        debug_print("[EEG-BASE-TO-NIX] Use like an argument path into folder with measurement")
         sys.exit()
+
+    global debug_mode
+    if len(args) == 3:
+        if "1" in args[2]:
+            debug_mode = 1
+
     directories = next(os.walk(args[1]))[1]
     if "Data" in directories:
         convert(args[1])
     else:
-        #convert(args[1] + path_spliter + directories[0])
         for d in directories:
             convert(args[1] + path_spliter + d)
-
-
-    # convert(args[1])
-    # if file_exist(args[1] + path_spliter+"metadata.xml") == 0:
-    #     print("[EEG-BASE-TO-NIX] Metadata.xml file not found")
-    #     sys.exit()
-    # vhdr_files = all_vhdr_files(args[1] + path_spliter+"Data")
-    # if not vhdr_files:
-    #     print("[EEG-BASE-TO-NIX] No .vhdr files not found")
-    #     sys.exit()
-    # print("[EEG-BASE-TO-NIX] Array vhdr files:", vhdr_files)
-    # path_to_metadata = xml_parser(args[1] + path_spliter+"metadata.xml", vhdr_files[0])
-    # path_to_nix = run_mne_to_nix_script(vhdr_files[0])
-    # if "ErrorScript" in path_to_nix:
-    #     print("[EEG-BASE-TO-NIX] Script nnetonix.py failed")
-    #     sys.exit()
-    # copy_file(path_to_nix, path_to_metadata)
-    # nixodmlconverter_script(path_to_metadata)
-    print("[EEG-BASE-TO-NIX] Script ended")
+    debug_print("[EEG-BASE-TO-NIX] Script ended")
 
 
 if __name__ == '__main__':

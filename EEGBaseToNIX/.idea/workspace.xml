@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/EEGBaseToNIX.py" line="91" mnemonic="3" />
+    <bookmark url="file://$PROJECT_DIR$/EEGBaseToNIX.py" line="177" mnemonic="3" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c66c563c-105d-4deb-8368-b8e8ade87c3f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Attention_of_driver_and_passenger/NewNIX/P3Numbers_20150618_f_11_001.nix" beforeDir="false" afterPath="$PROJECT_DIR$/../Attention_of_driver_and_passenger/NewNIX/P3Numbers_20150618_f_11_001.nix" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EEGBaseToNIX.py" beforeDir="false" afterPath="$PROJECT_DIR$/EEGBaseToNIX.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VVDKU_M01U_SC01_0001.nix" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VVDKU_M01U_SC01_0001.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VVDKU_M01U_SC01_0001xml" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +19,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mnetonix.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="64" column="12" selection-start-line="64" selection-start-column="12" selection-end-line="64" selection-end-column="12" />
+            <state relative-caret-position="285">
+              <caret line="19" column="19" selection-start-line="1" selection-end-line="19" selection-end-column="19" />
+              <folding>
+                <element signature="e#2166#2176#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -32,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EEGBaseToNIX.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="158" column="58" lean-forward="true" selection-start-line="158" selection-start-column="58" selection-end-line="158" selection-end-column="58" />
+            <state relative-caret-position="339">
+              <caret line="258" column="65" selection-start-line="258" selection-start-column="65" selection-end-line="258" selection-end-column="65" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -69,7 +68,12 @@
       <find>section</find>
       <find>user_input</find>
       <find>/</find>
+      <find>print(</find>
+      <find>&quot;Data&quot;</find>
     </findStrings>
+    <replaceStrings>
+      <replace>debug_print(</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -98,7 +102,7 @@
     <option name="x" value="67" />
     <option name="y" value="25" />
     <option name="width" value="927" />
-    <option name="height" value="950" />
+    <option name="height" value="948" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -253,21 +257,23 @@
       <workItem from="1555320132835" duration="1435000" />
       <workItem from="1555324857223" duration="1158000" />
       <workItem from="1555344180006" duration="6844000" />
+      <workItem from="1555414754793" duration="5727000" />
+      <workItem from="1555433100317" duration="2511000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113251000" />
+    <option name="totallyTimeSpent" value="121489000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="950" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.060320973" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.061981183" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32886723" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4409257" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3410475" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39901477" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -290,21 +296,27 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/EEGBaseToNIX$convert.coverage" NAME="convert Coverage Results" MODIFIED="1554981972697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/EEGBaseToNIX$EEGBaseToNIX.coverage" NAME="EEGBaseToNIX Coverage Results" MODIFIED="1555351516647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/EEGBaseToNIX$EEGBaseToNIX.coverage" NAME="EEGBaseToNIX Coverage Results" MODIFIED="1555419167349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EEGBaseToNIX$mnetonix.coverage" NAME="mnetonix Coverage Results" MODIFIED="1554741507425" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/nixio/pycore/file.py" />
     <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/nixio/pycore/h5group.py" />
-    <entry file="file://$PROJECT_DIR$/VVDKU_M01U_SC01_0001.nix">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="-2205" />
+    <entry file="file://$PROJECT_DIR$/VVDKU_M01U_SC01_0001.nix" />
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="11" selection-end-column="16" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mnetonix.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="64" column="12" selection-start-line="64" selection-start-column="12" selection-end-line="64" selection-end-column="12" />
+        <state relative-caret-position="285">
+          <caret line="19" column="19" selection-start-line="1" selection-end-line="19" selection-end-column="19" />
+          <folding>
+            <element signature="e#2166#2176#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -318,17 +330,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EEGBaseToNIX.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="158" column="58" lean-forward="true" selection-start-line="158" selection-start-column="58" selection-end-line="158" selection-end-column="58" />
+        <state relative-caret-position="339">
+          <caret line="258" column="65" selection-start-line="258" selection-start-column="65" selection-end-line="258" selection-end-column="65" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
