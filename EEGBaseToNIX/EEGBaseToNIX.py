@@ -352,13 +352,13 @@ def convert(path):
     Method drives conversion between BarainVision and nix file.
     :param path: Path to target directory
     """
-    print("[CONVERT-FILE] Converting target file: " + path)
+    print("[CONVERT-FILE] Working with target file: " + path)
     if file_exist(path + path_spliter+"metadata.xml") == 0:
-        debug_print("[CONVERT-FILE] Metadata.xml file not found")
+        print("[CONVERT-FILE] Metadata.xml file not found")
         return
     vhdr_files = all_vhdr_files(path + path_spliter+"Data")
     if not vhdr_files:
-        debug_print("[CONVERT-FILE] No .vhdr files not found")
+        print("[CONVERT-FILE] No completely .vhdr files found")
         return
     debug_print_arr("[CONVERT-FILE] Array vhdr files:", vhdr_files)
     path_to_metadata = xml_parser(path + path_spliter+"metadata.xml", vhdr_files[0])
@@ -380,15 +380,19 @@ def main():
     debug_print("[EEG-BASE-TO-NIX] Script started")
     args = sys.argv
     if len(args) == 1:
-        debug_print("[EEG-BASE-TO-NIX] Use like an argument path into folder with measurement")
+        print("[EEG-BASE-TO-NIX] Use like an argument path into folder with measurement")
         sys.exit()
 
     global debug_mode
     if len(args) == 3:
         if "1" in args[2]:
             debug_mode = 1
+    try:
+        directories = next(os.walk(args[1]))[1]
+    except:
+        print("[EEG-BASE-TO-NIX] insert Path")
+        return 0
 
-    directories = next(os.walk(args[1]))[1]
     if "Data" in directories:
         convert(args[1])
     else:
