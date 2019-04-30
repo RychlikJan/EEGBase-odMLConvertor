@@ -380,17 +380,18 @@ def main():
     debug_print("[EEG-BASE-TO-NIX] Script started")
     args = sys.argv
     if len(args) == 1:
-        print("[EEG-BASE-TO-NIX] Use like an argument path into folder with measurement")
+        print("[EEG-BASE-TO-NIX] Use path to a folder with measurement as an argument")
         sys.exit()
 
     global debug_mode
     if len(args) == 3:
         if "1" in args[2]:
             debug_mode = 1
+    print(args[1])
     try:
         directories = next(os.walk(args[1]))[1]
     except:
-        print("[EEG-BASE-TO-NIX] insert Path")
+        print("[EEG-BASE-TO-NIX] Use path to a folder with measurement as an argument")
         return 0
 
     if "Data" in directories:
