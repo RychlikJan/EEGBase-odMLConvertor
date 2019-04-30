@@ -1,0 +1,29 @@
+\chapter{User Document}
+\section{Intro}
+The tool EEGBaseToNIX.py is a convertor Brain Vision data to NIX/odML file. The tool can parse and connect Brain Vision data with metadata at odML structure. 
+\section{Install}
+okopirovat z G-Node popis zavislosti
+EEGBaseToNIX works on Python3, for succesful install all dependencies is needed pip(3).
+\begin{itemlist}
+\item 1) Colone or download the repository.
+\item 2) Go to the folder EEGBaseToNIX.
+\item 3) Run installLinux.sh for linux or installWin.bat for windows to download all dependencies.
+\item 4) Run EEGBaseToNIX.py.
+\end{itemlist}
+\section{Use Case}
+Data Package
+Data package is a working label for a folder with metadata and data to convert.
+Data package structure:
+The package have to contains folder called "Data" with Brain Vision data inside (.eeg, .vhdr, .vmrk), and file metadata.xml. The file metadata have to contains data in odML format any version.  
+The tool is runable with one mandatory argument and one optional argument.
+
+The mandatory argument is path to the data package, where are "metadata" and folder "Data" and convert them to NIX/odML. 
+If the path enter into folder, where are no metadata, check all folders inside.
+ If the folders inside id a data package, try to convert the value 
+of this folder. By this way is possible to concert more than one data package. The path has to be
+ write without last separator.
+
+
+
+  
+
